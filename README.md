@@ -36,19 +36,31 @@ Your company needs you to design a data platform that uses MySQL as an OLTP data
 
 ### Solution
 Connect to MySQL Command Line Interface and create the database.
+
+
 ![connect](Module%201/1.png)
 
 Create the sales_data table, using engine InnoDB.
+
+
 ![create](Module%201/2.png)
 
 Import the provided transaction history into the sales_data table, use PhPMyAdmin.
+
+
 ![import](Module%201/3.png)
 
 Create an index on the timestamp to speed up queries, then show all the indices on the table
-![create index](Module 1/6.png)
+
+
+![create index](Module%201/6.png)
+
+
 ![show index](Module%201/7.png)
 
 Writing a bash script to export the rows in the sales_data table to automate the export of daily incremental data into the data warehouse. This script can be executed daily by configuring cron to run it on the linux server.
+
+
 ![script](Module%201/8.png)
 
 ## Module 2
@@ -57,21 +69,33 @@ Your company needs you to design a data platform that uses MongoDB as a NoSQL da
 
 ### Solution
 Using mongoimport to load the provided inventory catalog to the mongo database. Then, connecting to the mongo shell (which is in a remote server) to confirm the catalog collection was created
+
+
 ![connect](Module%202/1.png)
 
 Creating an index on the field "type" to make the future queries faster
+
+
 ![index create](Module%202/2.png)
 
 Counting the number of entries, or documents, whose type is laptop
+
+
 ![count laptops](Module%202/3.png)
 
 Simple query to count smart phones with 6 inches of screen size
+
+
 ![count 6-inch](Module%202/4.png)
 
 Query to find the average screen size of smart phones.
+
+
 ![average screen](Module%202/5.png)
 
 Using mongoexport to extract only the fields that are required (id, type, model) into a csv
+
+
 ![export](Module%202/6.png)
 
 ## Module 3
@@ -85,25 +109,39 @@ You will use your data warehousing skills to design and implement a data warehou
 
 ### Solution
 Using the ERD tool in pgAdmin, I designed the following star schema for the data warehouse:
+
+
 ![star schema](Module%203/1.png)
 
 The schema is made of 4 dimension tables with details and a fact table. Hence, the schema is highly normalized. 
 The corresponding SQL statements to create this schema are:
+
+
 ![schema sql](Module%203/2.png)
 
 A simple query to see what the dimension table category looks like:
+
+
 ![sql query](Module%203/3.png)
 
 With the created schema, the main production database in IBM Db2 cloud is populated with all the transactional data provided.
+
+
 ![db2 load](Module%203/4.png)
 
 Query to analyze the total amount of sales grouping both by category type and country, using grouping sets.
+
+
 ![db2 grouping sets](Module%203/5.png)
 
 Query to analyze the average sales by country and year, using a group by cube statement.
+
+
 ![db2 cube](Module%203/6.png)
 
 SQL statement to create a materialized view (MQT) which shows the total sales by country every time it's updated.
+
+
 ![db2 mqt](Module%203/7.png)
 
 ## Module 4
@@ -112,18 +150,28 @@ Your company has finished setting up a data warehouse. Now you are assigned the 
 
 ### Solution
 Load the sales data in the provided ecommerce.csv to IBM Db2 cloud in order to connect it to IBM Cognos Analytics seamlessly
+
+
 ![db2 load](Module%204/1.png)
 
 Inspecting the data before analyzing.
+
+
 ![cognos inspect](Module%204/2.png)
 
 Line chart of sales by month, noting the month with the most sales is the first one, followed by the least selling month immediately after.
+
+
 ![cognos line](Module%204/3.png)
 
 Pie chart showing the share of sales by category, showing a major difference between electronics sales and music/ebooks.
+
+
 ![cognos pie](Module%204/4.png)
 
 Bar chart showing the total sales by quarter.
+
+
 ![cognos bar](Module%204/5.png)
 
 ## Module 5
@@ -132,12 +180,18 @@ Transactional data from the OLTP database (in this case MySQL) needs to be propa
 
 ### Part 1 Solution
 Connecting and authenticating to the PostgreSQL database, and a simple function to get the last row ID and hence know how desyncronized the databases are.
+
+
 ![connect](Module%205/1.png)
 
 Function to extract all the entries in the MySQL OLTP database that are newer than the last transaction saved in Postgres. The password is hard-coded only for simplicity but better practice is to read from an external file or prompt
+
+
 ![extract](Module%205/2.png)
 
 The new records since the last backup are then inserted.
+
+
 ![load](Module%205/3.png)
 
 ### Part 2 Description
@@ -146,20 +200,34 @@ Our data platform includes a Big Data repository that is used for analytics usin
 ### Part 2 Solution
 
 Imports and setup of the Apache Airflow DAG
+
+
 ![import](Module%205/4.png)
+
+
 ![dag](Module%205/5.png)
 
 Extract pipeline stage which uses shell operators to extract only IP addresses from the e-commerce web logs 
+
+
 ![extract](Module%205/6.png)
 
 Transform pipeline stage to remove the IP 198.46.149.143 from the previously extracted logs.
+
+
 ![transform](Module%205/7.png)
 
 Load pipeline stage to save the processed IP logs to a tar file.
+
+
 ![loading](Module%205/8.png)
 
 Screenshots from Apache Airflow showing the pipeline active and the analysis after it ran successfully. The web log processing takes about 10 seconds.
+
+
 ![airflow1](Module%205/9.png)
+
+
 ![airflow2](Module%205/10.png)
 
 ## Module 6
@@ -170,13 +238,22 @@ You will work in Watson Studio within a Jupyter notebook to run your analysis ag
 
 ### Solution
 Setup importing all the requirements from pyspark, execute findspark(), and create a spark session.
+
+
 ![importing](Module%206/1.png)
 
 Download the data which contains the search terms clients have used in the e-commerce web server. Then, load the data into a spark dataframe and show the number of rows, columns, and the first 5 search terms.
+
+
 ![downloading](Module%206/2.png)
 
 Using aggregation on the spark dataframe to find the top 5 most searched terms in the e-commerce platform
+
+
 ![top5](Module%206/3.png)
 
-Import the linear regression model from spark machine learning, then load the pre-trained model. The function predict() was created in this assignment to transform the data provided into a format accepted by the pre-trained ML model, and lastly use it to predict the number of sales for 2023.
+Import the linear regression model from spark machine learning, then load the pre-trained model. The function predict() was created in this assignment to transform the data provided into a format accepted by the pre-trained ML model, 
+and lastly use it to predict the number of sales for 2023.
+
+
 ![predict](Module%206/4.png)
